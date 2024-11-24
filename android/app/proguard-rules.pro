@@ -8,3 +8,9 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+-keep class com.facebook.react.** { *; }
+-keep class com.swmansion.reanimated.** { *; }
+-keepclassmembers class * { @com.facebook.react.uimanager.annotations.ReactProp *; }
+-keep class androidx.** { *; }
+-dontwarn androidx.lifecycle.**
+-dontwarn com.facebook.react.**

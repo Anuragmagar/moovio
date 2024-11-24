@@ -1,118 +1,64 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+  Home3,
+  MusicPlaylist,
+  SearchNormal1,
+  Setting2,
+} from 'iconsax-react-native';
+import HomeScreen from './src/screens/HomeScreen';
+import SearchStackNavigator from './src/screens/SearchStackNavigator';
+import WatchListScreen from './src/screens/WatchList';
+import SettingsStackNavigator from './src/screens/SettingsStackNavigator';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const Tab = createMaterialBottomTabNavigator();
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <Tab.Navigator
+      activeColor="white"
+      inactiveColor="#D1D1D1"
+      barStyle={{backgroundColor: '#424242', height: 70}}
+      activeIndicatorStyle={{backgroundColor: '#f2e6d9'}}>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({color, focused}) => (
+            <Home3 size={20} color={focused ? 'black' : 'white'} />
+          ),
+        }}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <Tab.Screen
+        name="Search"
+        // component={SearchScreen}
+        component={SearchStackNavigator}
+        options={{
+          tabBarIcon: ({color, focused}) => (
+            <SearchNormal1 size={20} color={focused ? 'black' : 'white'} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Watch List"
+        component={WatchListScreen}
+        options={{
+          tabBarIcon: ({color, focused}) => (
+            <MusicPlaylist size={20} color={focused ? 'black' : 'white'} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsStackNavigator}
+        options={{
+          tabBarIcon: ({color, focused}) => (
+            <Setting2 size={20} color={focused ? 'black' : 'white'} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
